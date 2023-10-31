@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Background="{StaticResource GradientBg}"
+             xmlns:models="clr-namespace:SourceCodeStudioTest.Models"
+             xmlns:controls="clr-namespace:SourceCodeStudioTest.Controls"
+             xmlns:viewModels="clr-namespace:SourceCodeStudioTest.ViewModels"
+             x:Class="SourceCodeStudioTest.Views.MainPage" 
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewModels:MainPageViewModel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid RowDefinitions="Auto,*,Auto" Padding="30">
+
+            <Label Text="Welcome!"
+                   Grid.Row="0" FontSize="32"
+                   HorizontalOptions="Center" />
+
+            <VerticalStackLayout IsVisible="{Binding HasLocation}"
+                                 VerticalOptions="Center"
+                                 Grid.Row="1">
+
+                <Label Text="Your current location is"
+                       FontSize="20"
+                       HorizontalOptions="Center" />
+
+                <controls:LocationControl Location="{Binding Location}"
+                                          ComparedLocation="{Binding ComparedLocation}"
+                                          Margin="20,30,20,50" />
+
+
+            </VerticalStackLayout>
+
+
+            <Label Text="Looking for your location..."
+                   FontSize="20" Grid.Row="1"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding HasLocation, Converter={StaticResource InvertedBoolConverter}}" />
+
+
+            <VerticalStackLayout Grid.Row="2" 
+                                 Spacing="10" 
+                                 IsVisible="{Binding HasLocation}">   
+                
+                <Button Text="Open in maps"
+                        Command="{Binding OpenMapLocationCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}" />
+
+                <Button Text="Refresh location" 
+                        Command="{Binding RefreshLocationCommand}"
+                        Style="{StaticResource SecondaryButtonStyle}" />
+                
+            </VerticalStackLayout>
+
+        </Grid>
+
+
+        <ActivityIndicator Color="{StaticResource Secondary}" 
+                           IsRunning="{Binding IsLoading}"
+                           Grid.RowSpan="3"
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center" />
+    </Grid>
+</ContentPage>

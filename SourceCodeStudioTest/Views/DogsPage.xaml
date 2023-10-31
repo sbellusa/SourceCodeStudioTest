@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SourceCodeStudioTest.Views.DogsPage"
+             Background="{StaticResource GradientBg}"
+             xmlns:models="clr-namespace:SourceCodeStudioTest.Models"
+             xmlns:viewModels="clr-namespace:SourceCodeStudioTest.ViewModels"
+             Shell.NavBarIsVisible="True"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewModels:DogsPageViewModel">
+
+    <Grid RowDefinitions="*, Auto" 
+          Margin="10" 
+          MaximumWidthRequest="600">
+        
+        <CollectionView ItemsSource="{Binding Dogs}" 
+                        ItemsLayout="{StaticResource DogItemLayout}"
+                        ItemTemplate="{StaticResource DogTemplate}"
+                        ItemsUpdatingScrollMode="KeepLastItemInView" />
+
+        <Button Text="load more"                 
+                Grid.Row="1" Margin="0,10"
+                Style="{StaticResource PrimaryButtonStyle}"
+                Command="{Binding AddDogCommand}" />
+
+        <ActivityIndicator Color="{StaticResource Secondary}" 
+                           IsRunning="{Binding IsLoading}"
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center" />
+    </Grid>
+
+</ContentPage>

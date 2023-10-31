@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:SourceCodeStudioTest.Models"
+             xmlns:viewModels="clr-namespace:SourceCodeStudioTest.ViewModels">
+
+    <!-- Dog Items Template -->
+    <DataTemplate x:DataType="viewModels:DogViewModel" x:Key="DogTemplate">
+        <Border StrokeShape="RoundRectangle 5"
+                        Stroke="Transparent"
+                        HeightRequest="200">
+            <Grid>
+                <Image Source="default_dog.png" Aspect="AspectFill" />
+                <Image Source="{Binding DogUrl}" Aspect="AspectFill" />
+
+                <Grid BackgroundColor="#000000"
+                              MinimumHeightRequest="50"
+                              VerticalOptions="End" Opacity="0.7"
+                              HorizontalOptions="FillAndExpand">
+
+                    <Label Text="{Binding DogBreed}"
+                                   FontAttributes="Bold"
+                                   Padding="5" MaxLines="2" />
+                </Grid>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <!-- Dog Items Layout -->
+    <GridItemsLayout Orientation="Vertical" Span="3" x:Key="DogItemLayout" />
+
+</ResourceDictionary>
